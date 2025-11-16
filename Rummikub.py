@@ -30,8 +30,7 @@ class Rummikub(UI.RummikubUI):
         self._connect_shortcuts()
 
     def _connect_callbacks(self):
-        """Conecta los callbacks de los widgets a 
-        sus métodos correspondientes."""
+        """Conecta los callbacks de los widgets a sus métodos correspondientes."""
         self.bbt_reglas.configure (command=self.mostrar_reglas)
         self.bbt_nueva.configure  (command=self.nueva_partida)
         self.bbt_salir.configure  (command=self.confirmar_salir)        
@@ -50,11 +49,11 @@ class Rummikub(UI.RummikubUI):
 
     def _connect_shortcuts(self):
         """Conecta atajos de teclado a sus métodos correspondientes."""
-        self.bind('<Control-Return>', self.ok_listo) # Enter para OK
-        self.bind('<Control-n>', self.nueva_partida) # Ctrl+N para Nueva Partida
-        self.bind('<Control-q>', self.confirmar_salir) # Ctrl+Q para Salir
-        self.bind('<Escape>', self.deshacer_atras) # Escape para Atrás/Deshacer
-        self.bind('<Control-r>', self.robar_ficha) # Ctrl-R para Robar
+        self.bind('<Control-Return>', self.ok_listo)        # Enter para OK
+        self.bind('<Control-n>',      self.nueva_partida)   # Ctrl+N para Nueva Partida
+        self.bind('<Control-q>',      self.confirmar_salir) # Ctrl+Q para Salir
+        self.bind('<Escape>',         self.deshacer_atras)  # Escape para Atrás/Deshacer
+        self.bind('<Control-r>',      self.robar_ficha)     # Ctrl-R para Robar
 
     def buscar_boton_por_id(self, widget_id):
         # Buscar en la tablilla
@@ -76,8 +75,7 @@ class Rummikub(UI.RummikubUI):
     def drop_ficha(self, source_widget, target_widget):
         """
         Maneja el evento de 'soltar' una ficha en un destino.
-        Ahora contempla mover fichas dentro de la mesa 
-        o devolverlas a la tablilla.
+        Ahora contempla mover fichas dentro de la mesa o devolverlas a la tablilla.
         """
         # Si el origen y el destino son el mismo, no hacer nada
         if source_widget == target_widget:
@@ -108,8 +106,7 @@ class Rummikub(UI.RummikubUI):
                                 state=target_props['state'])
 
         # --- Lógica para mostrar/ocultar bordes en la mesa ---
-        # Después del intercambio, actualizamos los bordes de ambos widgets
-        # si pertenecen a la mesa de juego.
+        # Después del intercambio, actualizamos los bordes de ambos widgets si pertenecen a la mesa de juego.
         for widget in [source_widget, target_widget]:
             if widget.winfo_name().startswith('mesa_'):
                 # Si el botón de la mesa tiene una ficha, muestra el borde.
@@ -175,8 +172,7 @@ class Rummikub(UI.RummikubUI):
         self.comenzar()
 
     def confirmar_salir(self, event=None):
-        if tkmessage.askyesno('Terminar', 
-                              'Está seguro de que quiere terminar?'):
+        if tkmessage.askyesno('Terminar', 'Está seguro de que quiere terminar?'):
             self.destroy()
 
     def mostrar_ayuda(self, event=None):
@@ -206,10 +202,9 @@ class Rummikub(UI.RummikubUI):
 
     def robar_ficha(self, event=None):
         # Esto permite evitar el BUCLE SIN FIN de juego
-        #  (pedir-comando + ejecutar-comando) del SHELL de CLIPS.
+        # (pedir-comando + ejecutar-comando) del SHELL de CLIPS.
         clipsprogram.EntornoClips.eval('(assert (con-interfaz-grafica))') 
-        clipsprogram.EntornoClips.eval(
-            '(robar-ficha-humano (obtener-siguiente-secuencia))')        
+        clipsprogram.EntornoClips.eval('(robar-ficha-humano (obtener-siguiente-secuencia))')        
         clipsprogram.EntornoClips.eval('(pasar-turno-a maquina)')
         clipsprogram.EntornoClips.run()
         self.mostrar_fichas_humano()
@@ -221,8 +216,7 @@ class Rummikub(UI.RummikubUI):
 
     def deshacer_atras(self, event=None):
         """Este comando no se ejecuta en CLIPS. Sólo desde Python"""
-        # En definitiva es volver a mostrar la pantalla con el
-        # último estado de las fichas.
+        # En definitiva es volver a mostrar la pantalla con el último estado de las fichas.
         self.mostrar_fichas_humano()
         self.mostrar_fichas_maquina()        
         self.mostrar_fichas_tablero()
@@ -237,13 +231,11 @@ class Rummikub(UI.RummikubUI):
             for j, btn in enumerate(fila_botones):
                 texto_ficha = btn.cget('text')
                 if texto_ficha:
-                    # Si el botón tiene una ficha, la anyadimos al bloque actual
-                    # junto con su fila y columna.
+                    # Si el botón tiene una ficha, la añadimos al bloque actual junto con su fila y columna.
                     info_ficha = {'texto': texto_ficha, 'fila': i, 'col': j}
                     bloque_actual.append(info_ficha)
                 else:
-                    # Si encontramos un hueco y estábamos
-                    # formando un bloque, lo guardamos
+                    # Si encontramos un hueco y estábamos formando un bloque, lo guardamos
                     if bloque_actual:
                         jugadas_en_mesa.append(bloque_actual)
                         bloque_actual = []
@@ -288,8 +280,7 @@ class Rummikub(UI.RummikubUI):
                 texto_ficha = ficha['texto']
                 fila = ficha['fila']
                 columna = ficha['col']
-                # Expresión regular para extraer número, letra de color
-                # y símbolo de bloque
+                # Expresión regular para extraer número, letra de color y símbolo de bloque
                 match = re.match(r"(\d+)([AJNRC])(['.])", texto_ficha)
                 if match:
                     numero = match.group(1)
@@ -331,7 +322,6 @@ class Rummikub(UI.RummikubUI):
         #        print(fact)
         #print("-----------------------------------------------------------\n")
 
-
         # Antes de pasar turno a la máquina. Nos aseguramos que el jugador
         # ha puesto al menos una ficha.
         # Para ello se localizará una ficha del tablero 
@@ -346,10 +336,7 @@ class Rummikub(UI.RummikubUI):
                 break
         
         if not ha_puesto_ficha_propia:
-            tkmessage.showwarning(
-                "Jugada incompleta",
-                "Debes jugar al menos una de tus fichas para terminar tu turno."
-            )
+            tkmessage.showwarning("Jugada incompleta","Debes jugar al menos una de tus fichas para terminar tu turno.")
             self.deshacer_atras()
             return
             
@@ -384,8 +371,7 @@ class Rummikub(UI.RummikubUI):
 
     # FUNCIONES AUXILIARES
     def obtener_fichas_por_ubicacion(self, ubicacion):
-            """Obtiene y parsea las fichas de CLIPS 
-            para una ubicación específica."""
+            """Obtiene y parsea las fichas de CLIPS para una ubicación específica."""
             fichas = []
             for fact in clipsprogram.EntornoClips.facts():
                 if (fact.template.name == 'ficha' 
@@ -400,8 +386,7 @@ class Rummikub(UI.RummikubUI):
             # Ordenar las fichas para una mejor visualización
             # en la tablilla del jugador.
             # Se ordena primero por color y luego por número.
-            fichas_humano.sort(key=lambda f: (f.get('color', ''),
-                                               int(f.get('numero', 0))))
+            fichas_humano.sort(key=lambda f: (f.get('color', ''),int(f.get('numero', 0))))
             self._actualizar_tablilla(self.tablilla_botones, fichas_humano)
 
     def mostrar_fichas_maquina(self):
@@ -410,8 +395,7 @@ class Rummikub(UI.RummikubUI):
             # Antes de actualizar, nos aseguramos de que
             # las fichas sean visibles
             self.maquina_fichas_visibles = True
-            self._actualizar_tablilla(self.tablilla_maquina_botones, 
-                                      fichas_maquina)
+            self._actualizar_tablilla(self.tablilla_maquina_botones, fichas_maquina)
             self._textos_ocultos_maquina = [] # Limpiamos el backup de textos
 
     def mostrar_fichas_tablero(self):
@@ -433,4 +417,3 @@ if __name__ == "__main__":
     app = Rummikub()
     clipsprogram.Comenzar()
     app.run()
-    

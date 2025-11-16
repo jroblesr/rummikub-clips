@@ -13,10 +13,7 @@
 import re
 
 def parsear_fact_string(fact_str):
-    """
-    Parsea una cadena de tipo fact(ficha) CLIPS y 
-    devuelve un diccionario con los campos y valores.
-    """
+    """ Parsea una cadena de tipo fact(ficha) CLIPS y devuelve un diccionario con los campos y valores. """
     # Elimina el encabezado '(ficha ' y el paréntesis final (:-1).
     # Nos quedamos con el contenido.
     fact_str = fact_str.strip()

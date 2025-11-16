@@ -30,8 +30,8 @@ class DraggableMixin:
         if self.cget('text'):
             # Crear ventana flotante para la representación visual del arrastre
             self._drag_data["widget"] = tk.Toplevel(self)
-            self._drag_data["widget"].overrideredirect(True) #NO Bordes y Título
-            self._drag_data["widget"].attributes("-topmost", True)#Always OnTop
+            self._drag_data["widget"].overrideredirect(True)       # NO Bordes y Título
+            self._drag_data["widget"].attributes("-topmost", True) # Always OnTop
             
             # Usar un Label para mostrar la ficha que se arrastra
             label = tk.Label(self._drag_data["widget"], text=self.cget('text'), 
@@ -40,8 +40,7 @@ class DraggableMixin:
             label.pack()
 
             # Posicionar la ventana flotante en el cursor
-            self._drag_data["widget"].geometry(
-                                    f"+{event.x_root+10}+{event.y_root+10}")
+            self._drag_data["widget"].geometry(f"+{event.x_root+10}+{event.y_root+10}")
             
             # Guardar el widget original
             self._drag_data["item"] = self
@@ -51,8 +50,7 @@ class DraggableMixin:
     def on_drag_motion(self, event):
         if self._drag_data["widget"]:
             # Mover la ventana flotante con el cursor
-            self._drag_data["widget"].geometry(
-                                    f"+{event.x_root+10}+{event.y_root+10}")
+            self._drag_data["widget"].geometry(f"+{event.x_root+10}+{event.y_root+10}")
 
             # --- Lógica de resaltado del destino ---
             x, y = event.x_root, event.y_root
@@ -64,8 +62,7 @@ class DraggableMixin:
                 # Si había un widget resaltado, restaurar su color original
                 if last_highlighted:
                     try:
-                        last_highlighted.config(
-                                            bg=self._drag_data["original_bg"])
+                        last_highlighted.config(bg=self._drag_data["original_bg"])
                     except tk.TclError:
                         # El widget podría haber sido destruido
                         pass
@@ -103,8 +100,7 @@ class DraggableMixin:
                 # llamamos a la función de drop.
                 if isinstance(target_widget, DraggableButton):
                     # Asumimos que la clase principal tiene método `drop_ficha`
-                    self.winfo_toplevel().drop_ficha(
-                                        self._drag_data["item"], target_widget)
+                    self.winfo_toplevel().drop_ficha(self._drag_data["item"], target_widget)
 
             self._drag_data["item"] = None
             self._drag_data["highlighted_widget"] = None

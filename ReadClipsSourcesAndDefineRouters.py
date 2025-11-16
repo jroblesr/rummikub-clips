@@ -4,7 +4,7 @@
 ### Sistema Experto en CLIPS para jugar al Rummikub
 ###
 
-# Para ubicar los archivos en el disco.
+# Para ubicar los archivos en el disco/almacenamiento.
 import os
 
 # Nuestra principal librería para conectar con CLIPS: clipspy
@@ -19,8 +19,8 @@ from clips import Router
 # que viene incluido en la distribución de CLIPS (y se puede utilizar como
 # entorno de desarrollo).
 
-# Definimos un router para interceptar la salida estandar de clips "stdout".
-# Si lo activamos, nos permitirá mostrar los mensajes que emite clips
+# Definimos un router para interceptar la salida estandar de CLIPS "stdout".
+# Si lo activamos, nos permitirá mostrar los mensajes que emite CLIPS
 # en nuestra GUI.
 class OutRouter(Router):
 
@@ -47,8 +47,8 @@ class OutRouter(Router):
         #print(message, end='')
         self.share_message(name, message)
 
-# Definimos un router para interceptar la entrada estandar de clips "stdin".
-# Si lo activamos, nos permitirá enviar texto a clips desde nuestra GUI.
+# Definimos un router para interceptar la entrada estandar de CLIPS "stdin".
+# Si lo activamos, nos permitirá enviar texto a CLIPS desde nuestra GUI.
 # En este caso lo dejamos como prueba de concepto "POC", de lo 
 # que se podría hacer.
 class InRouter(Router):
@@ -57,8 +57,7 @@ class InRouter(Router):
 
     def __init__(self):
         super().__init__('python-in-router', 1)
-        self._input_stream = 'AYUDA\nTERMINAR\n'  # Ejemplo: simulamos 
-                                                  # una entrada de usuario.
+        self._input_stream = 'AYUDA\nTERMINAR\n'  # Ejemplo: simulamos una entrada de usuario.
 
     def query(self, name: str) -> bool:
         if name == 'stdin':
@@ -72,13 +71,11 @@ class InRouter(Router):
         # A devolver el primer carácter leído como un entero (código ASCII).
         ret = ord(self._input_stream[0])
         print(self._input_stream[0], end='')
-        self._input_stream = self._input_stream[1:]  # Elimina el primer
-                                                     # carácter leído.
+        self._input_stream = self._input_stream[1:]  # Elimina el primer carácter leído.
         return ret
         
 
-# 1. Declaramos las variables a nivel de módulo para que
-# sean accesibles globalmente.
+# 1. Declaramos las variables a nivel de módulo para que sean accesibles globalmente.
 EntornoClips = None
 RouterClipsOut = None
 
@@ -91,17 +88,14 @@ def Comenzar():
     EntornoClips = clips.Environment()
     RouterClipsOut = OutRouter()
 
-    # 3. Interceptamos la salida "stdout" de CLIPS para
-    # reenviarla a nuestra GUI.
+    # 3. Interceptamos la salida "stdout" de CLIPS para reenviarla a nuestra GUI.
     EntornoClips.add_router(RouterClipsOut)
 
     # 3. El router de entrada no lo usaremos. POC.
-    #RouterClipsIn = InRouter() # Por ahora no vamos a simular
-                                # la entrada de usuario.
+    #RouterClipsIn = InRouter() # Por ahora no vamos a simular la entrada de usuario.
     #EntornoClips.add_router(RouterClipsIn)
 
-    # 4. Necesitamos saber dónde estamos para localizar los archivos
-    # que contienen el programa CLIPS.
+    # 4. Necesitamos saber dónde estamos para localizar los archivos que contienen el programa CLIPS.
     basedir = os.path.dirname(os.path.abspath(__file__))
 
     # 5. Secuencia habitual para iniciar un programa CLIPS:
@@ -113,36 +107,14 @@ def Comenzar():
     #    (reset)
     #    (run)
     EntornoClips.clear()
-    EntornoClips.batch_star(
-        path=os.path.join(basedir, 
-                        'clips.src',
-                        'rummikub-modulos.clp'))
-    EntornoClips.batch_star(
-        path=os.path.join(basedir, 
-                        'clips.src',
-                        'rummikub-variables-y-funciones.clp'))
-    EntornoClips.batch_star(
-        path=os.path.join(basedir, 
-                        'clips.src',
-                        'rummikub-m-buscar-combinaciones.alt.clp'))
-    EntornoClips.batch_star(
-        path=os.path.join(basedir, 
-                        'clips.src',
-                        'rummikub-m-validar-tablero.clp'))
-    EntornoClips.batch_star(
-        path=os.path.join(basedir, 
-                        'clips.src',
-                        'rummikub-m-validar-tablero-temporal.clp'))
-    EntornoClips.batch_star(
-        path=os.path.join(basedir, 
-                        'clips.src',
-                        'rummikub-m-hacer-disposicion-tablero-definitiva.clp'))
-    EntornoClips.batch_star(
-        path=os.path.join(basedir, 
-                        'clips.src',
-                        'rummikub.clp'))
+    EntornoClips.batch_star(path=os.path.join(basedir, 'clips.src', 'rummikub-modulos.clp'))
+    EntornoClips.batch_star(path=os.path.join(basedir, 'clips.src', 'rummikub-variables-y-funciones.clp'))
+    EntornoClips.batch_star(path=os.path.join(basedir, 'clips.src', 'rummikub-m-buscar-combinaciones.alt.clp'))
+    EntornoClips.batch_star(path=os.path.join(basedir, 'clips.src', 'rummikub-m-validar-tablero.clp'))
+    EntornoClips.batch_star(path=os.path.join(basedir, 'clips.src', 'rummikub-m-validar-tablero-temporal.clp'))
+    EntornoClips.batch_star(path=os.path.join(basedir, 'clips.src', 'rummikub-m-hacer-disposicion-tablero-definitiva.clp'))
+    EntornoClips.batch_star(path=os.path.join(basedir, 'clips.src', 'rummikub.clp'))
     EntornoClips.reset()    
 
-    # 6. No queremos ejecutar el programa de CLIPS desde aquí,
-    # solo cargarlo en memoria.
+    # 6. No queremos ejecutar el programa de CLIPS desde aquí, solo cargarlo en memoria.
     #EntornoClips.run()
