@@ -15,7 +15,7 @@ import re
 import VariablesYFunciones as aux
 import ReadClipsSourcesAndDefineRouters as clipsprogram
 
-# Cargamos el disenyo de la GUI
+# Cargamos el diseño de la GUI
 import RummikubUI as UI
 
 class Rummikub(UI.RummikubUI):
