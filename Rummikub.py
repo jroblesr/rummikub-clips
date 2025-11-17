@@ -281,11 +281,12 @@ class Rummikub(UI.RummikubUI):
                 fila = ficha['fila']
                 columna = ficha['col']
                 # Expresión regular para extraer número, letra de color y símbolo de bloque
-                match = re.match(r"(\d+)([AJNRC])(['.])", texto_ficha)
+                match = re.match(r"(\d+)([AJNRC])(['.])([+])", texto_ficha)
                 if match:
                     numero = match.group(1)
                     letra_color = match.group(2)
                     simbolo_bloque = match.group(3)
+                    aux = match.group(4)
 
                     # Convertir la letra y el símbolo a los
                     # valores correspondientes
@@ -293,11 +294,7 @@ class Rummikub(UI.RummikubUI):
                     bloque = simbolo_a_bloque.get(simbolo_bloque, 0)
 
                     # Construir y ejecutar el assert para CLIPS
-                    comando_assert = f"(assert"
-                    +"(ficha-temporal (numero {numero}) (color {color})"
-                    +"(bloque {bloque})"
-                    +"(id-jugada-temp (obtener-valor-actual-secuencia))"
-                    +"(ok-jugada-temp -1) (fila {fila}) (columna {columna})))"
+                    comando_assert = f"(assert (ficha-temporal (numero {numero}) (color {color}) (bloque {bloque}) (id-jugada-temp (obtener-valor-actual-secuencia)) (ok-jugada-temp -1) (fila {fila}) (columna {columna})))"
                     print(comando_assert) # Para depuración
                     clipsprogram.EntornoClips.eval(comando_assert)
 
@@ -346,6 +343,11 @@ class Rummikub(UI.RummikubUI):
 
         self._append_text_to_log("\n\nRUMMIKUB > OK - LISTO !!!\n\n")
         self._append_text_to_log(clipsprogram.RouterClipsOut.output_stream)        
+
+        self.mostrar_fichas_humano()
+        self.mostrar_fichas_maquina()
+        self.mostrar_fichas_tablero()
+        self.mostrar_fichas_bolsa()
 
     def toggle_visibilidad_fichas_maquina(self, event=None):
         """Oculta o muestra las fichas en la tablilla de la máquina."""

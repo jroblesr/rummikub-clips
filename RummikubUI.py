@@ -16,8 +16,8 @@ class RummikubUI(tk.Tk):
 
     _letras ={'azul': 'A', 'naranja': 'J', 'negro': 'N', 'rojo': 'R', 'comodin': 'C'}
     # Constantes para las dimensiones de la mesa de juego
-    NUM_FILAS_MESA = 30 # Inicialmente 30
-    NUM_COLS_MESA  = 25 # Inicialmente 25
+    NUM_FILAS_MESA = 20 # Inicialmente 30
+    NUM_COLS_MESA  = 35 # Inicialmente 25
 
     def __init__(self, master=None):
         super().__init__(master)
