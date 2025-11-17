@@ -281,7 +281,7 @@ class Rummikub(UI.RummikubUI):
                 fila = ficha['fila']
                 columna = ficha['col']
                 # Expresión regular para extraer número, letra de color y símbolo de bloque
-                match = re.match(r"(\d+)([AJNRC])(['.])([+])", texto_ficha)
+                match = re.match(r"(\d+)([AJNRC])(['.])([\+])", texto_ficha)
                 if match:
                     numero = match.group(1)
                     letra_color = match.group(2)

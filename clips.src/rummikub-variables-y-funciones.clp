@@ -17,10 +17,11 @@
 ; Nos servirá para labores de depuración.
 (defglobal MAIN ?*numero-de-fichas-iniciales-por-tablilla* = 14)
 
-(defglobal MAIN ?*debug-print*   = t) ; ( = t activada, = nil desactivada )
-(defglobal MAIN ?*debug-print-2* = t) ; ( = t activada, = nil desactivada )
-(defglobal MAIN ?*debug-print-3* = t) ; ( = t activada, = nil desactivada )
-(defglobal MAIN ?*debug-print-4* = t) ; ( = t activada, = nil desactivada )
+(defglobal MAIN ?*debug-print-1* = nil) ; ( = t activada, = nil desactivada )
+(defglobal MAIN ?*debug-print-2* = nil) ; ( = t activada, = nil desactivada )
+(defglobal MAIN ?*debug-print-3* = nil) ; ( = t activada, = nil desactivada )
+(defglobal MAIN ?*debug-print-4* = nil) ; ( = t activada, = nil desactivada )
+(defglobal MAIN ?*debug-m-val-tab-temp* = t) ; ( = t activada, = nil desactivada )
 
 (deffunction MAIN::obtener-siguiente-secuencia ()
         (bind ?*secuencia* (+ 1 ?*secuencia*))
@@ -182,7 +183,7 @@
 ; (tablero,bolsa,humano,máquina)
 (deffunction MAIN::mostrar-fichas (?ubicacion)
         (bind ?lista (create$ ?ubicacion))
-        (printout ?*debug-print* ?ubicacion": ")
+        (printout ?*debug-print-1* ?ubicacion": ")
         (bind ?fichas (find-all-facts ((?f ficha)) 
                         (eq ?f:ubicacion ?ubicacion)))
         (foreach ?ficha ?fichas
@@ -238,7 +239,7 @@
             (printout t "DESPUES DE ROBAR UNA FICHA QUEDAN EN LA BOLSA = "
                          (- ?total-fichas-en-bolsa 1) crlf)
             (bind ?extraida (random 1 ?total-fichas-en-bolsa))
-            (printout ?*debug-print* "En la pos: " ?extraida " esta: "
+            (printout ?*debug-print-1* "En la pos: " ?extraida " esta: "
                           (nth$ ?extraida ?fichas-en-bolsa) crlf)
             (modify (nth$ ?extraida ?fichas-en-bolsa) 
                                                 (ubicacion humano)(sorteo 0))
@@ -268,7 +269,7 @@
             (printout t "DESPUES DE ROBAR UNA FICHA QUEDAN EN LA BOLSA = "
                         (- ?total-fichas-en-bolsa 1) crlf)
             (bind ?extraida (random 1 ?total-fichas-en-bolsa))
-            (printout ?*debug-print* "En la pos: " ?extraida " esta: " 
+            (printout ?*debug-print-1* "En la pos: " ?extraida " esta: " 
                         (nth$ ?extraida ?fichas-en-bolsa) crlf)
             (modify (nth$ ?extraida ?fichas-en-bolsa) 
                                 (ubicacion maquina)(sorteo 0))
@@ -422,12 +423,12 @@ crlf
 (deffunction MAIN::comprobar-final-de-juego()
         (bind ?fichas-restantes-humano (length$ (find-all-facts ((?f ficha))
                                                     (eq ?f:ubicacion humano))))
-        (printout ?*debug-print* "A USTED LE QUEDAN: "
+        (printout ?*debug-print-1* "A USTED LE QUEDAN: "
                                                  (mostrar-fichas humano) crlf)   
 
         (bind ?fichas-restantes-maquina (length$ (find-all-facts ((?f ficha))
                                                    (eq ?f:ubicacion maquina))))
-        (printout ?*debug-print* "A MI ME QUEDAN: "
+        (printout ?*debug-print-1* "A MI ME QUEDAN: "
                                                  (mostrar-fichas maquina) crlf)   
    
         (if (= 0 ?fichas-restantes-maquina)

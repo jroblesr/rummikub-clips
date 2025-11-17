@@ -521,7 +521,7 @@
    (declare (salience -10))
    ?h1 <- (ficha (ubicacion tablero)(id-jugada ?i&~-1)(ok-jugada -1))
    =>
-   (printout ?*debug-print* "TABLERO INCORRECTO!!! JUGADA=("?i")" crlf)
+   (printout ?*debug-print-1* "TABLERO INCORRECTO!!! JUGADA=("?i")" crlf)
    (assert (tablero-correcto (correcto no)(id-jugada ?i)))
 )
 
@@ -530,7 +530,7 @@
    (not (exists (tablero-correcto (correcto no)(id-jugada ?i&~-1))))
    (not (exists (ficha (ubicacion tablero)(id-jugada ?)(ok-jugada -1))))
    =>
-   (printout ?*debug-print* "TABLERO CORRECTO!!!" crlf)
+   (printout ?*debug-print-1* "TABLERO CORRECTO!!!" crlf)
    (assert (tablero-correcto (correcto si)(id-jugada -1)))
 )
 

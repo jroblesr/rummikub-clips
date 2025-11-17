@@ -135,10 +135,10 @@
         (if (> (obtener-random 0 1) 0)
                 then
                 (assert (comienza-humano))
-                (printout ?*debug-print* "USTED JUEGA..." crlf)
+                (printout ?*debug-print-1* "USTED JUEGA..." crlf)
                 else
                 (assert (comienza-maquina))
-                (printout ?*debug-print* "ME TOCA A MI..." crlf)
+                (printout ?*debug-print-1* "ME TOCA A MI..." crlf)
         )
         (set-strategy random) ;Para dar aún más variabilidad al reparto inicial
         (focus
@@ -322,7 +322,7 @@
                (bind ?k (fact-slot-value ?j ficha-color))
                (bind ?i (fact-slot-value ?j id-movimiento))
                (while (< 0 (length$ ?k))
-                  (printout ?*debug-print* (first$ ?k) crlf)
+                  (printout ?*debug-print-1* (first$ ?k) crlf)
                   (assert (movimiento-humano-pendiente 
                            (ficha-color (first$ ?k) 
                            (obtener-siguiente-secuencia))
@@ -459,7 +459,7 @@
    =>
    (retract ?h1)
    (modify  ?h2 (ubicacion tablero)(id-jugada ?i))
-   (printout ?*debug-print* "REALIZAR MOVIMIENTO " ?f_numero "-" ?f_color crlf)
+   (printout ?*debug-print-1* "REALIZAR MOVIMIENTO " ?f_numero "-" ?f_color crlf)
    (assert (refrescar-fase2))
 )
 

@@ -92,7 +92,7 @@
             )
         )
         =>
-        (printout ?*debug-print-2* 
+        (printout ?*debug-m-val-tab-temp* 
         "ESCALERA EN MESA ["?n1","?n2","?n3","?n4","?n5","?n6","?n7","?n8","
         ?n9","?n10","?n11","?n12","?n13"] ("?c")" crlf)
         (modify ?h1 (ok-jugada-temp ?i))
@@ -194,7 +194,7 @@
             )
         )
         =>
-        (printout ?*debug-print-2* "ESCALERA EN MESA ["?n1","?n2","?n3","
+        (printout ?*debug-m-val-tab-temp* "ESCALERA EN MESA ["?n1","?n2","?n3","
         ?n4","?n5","?n6","?n7","?n8","?n9","?n10","?n11","?n12"] ("?c")" crlf)
         (modify ?h1 (ok-jugada-temp ?i))
         (modify ?h2 (ok-jugada-temp ?i))
@@ -288,7 +288,7 @@
             )
         )
         =>
-        (printout ?*debug-print-2* "ESCALERA EN MESA ["?n1","?n2","?n3","
+        (printout ?*debug-m-val-tab-temp* "ESCALERA EN MESA ["?n1","?n2","?n3","
         ?n4","?n5","?n6","?n7","?n8","?n9","?n10","?n11"] ("?c")" crlf)
         (modify ?h1 (ok-jugada-temp ?i))
         (modify ?h2 (ok-jugada-temp ?i))
@@ -375,7 +375,7 @@
             )
         )
         =>
-        (printout ?*debug-print-2* "ESCALERA EN MESA ["?n1","?n2","?n3","
+        (printout ?*debug-m-val-tab-temp* "ESCALERA EN MESA ["?n1","?n2","?n3","
         ?n4","?n5","?n6","?n7","?n8","?n9","?n10"] ("?c")" crlf)
         (modify ?h1 (ok-jugada-temp ?i))
         (modify ?h2 (ok-jugada-temp ?i))
@@ -455,7 +455,7 @@
             )
         )
         =>
-        (printout ?*debug-print-2* "ESCALERA EN MESA ["?n1","?n2","?n3","
+        (printout ?*debug-m-val-tab-temp* "ESCALERA EN MESA ["?n1","?n2","?n3","
         ?n4","?n5","?n6","?n7","?n8","?n9"] ("?c")" crlf)
         (modify ?h1 (ok-jugada-temp ?i))
         (modify ?h2 (ok-jugada-temp ?i))
@@ -528,7 +528,7 @@
             )
         )
         =>
-        (printout ?*debug-print-2* "ESCALERA EN MESA ["?n1","?n2","?n3","
+        (printout ?*debug-m-val-tab-temp* "ESCALERA EN MESA ["?n1","?n2","?n3","
         ?n4","?n5","?n6","?n7","?n8"] ("?c")" crlf)
         (modify ?h1 (ok-jugada-temp ?i))
         (modify ?h2 (ok-jugada-temp ?i))
@@ -594,7 +594,7 @@
             )        
         )
         =>
-        (printout ?*debug-print-2* "ESCALERA EN MESA ["?n1","?n2","?n3","
+        (printout ?*debug-m-val-tab-temp* "ESCALERA EN MESA ["?n1","?n2","?n3","
         ?n4","?n5","?n6","?n7"] ("?c")" crlf)
         (modify ?h1 (ok-jugada-temp ?i))
         (modify ?h2 (ok-jugada-temp ?i))
@@ -653,7 +653,7 @@
             )                
         )
         =>
-        (printout ?*debug-print-2* "ESCALERA EN MESA ["?n1","?n2","?n3","
+        (printout ?*debug-m-val-tab-temp* "ESCALERA EN MESA ["?n1","?n2","?n3","
         ?n4","?n5","?n6"] ("?c")" crlf)
         (modify ?h1 (ok-jugada-temp ?i))
         (modify ?h2 (ok-jugada-temp ?i))
@@ -704,7 +704,7 @@
             )                
         )
         =>
-        (printout ?*debug-print-2* "ESCALERA EN MESA ["?n1","?n2","?n3","
+        (printout ?*debug-m-val-tab-temp* "ESCALERA EN MESA ["?n1","?n2","?n3","
         ?n4","?n5"] ("?c")" crlf)
         (modify ?h1 (ok-jugada-temp ?i))
         (modify ?h2 (ok-jugada-temp ?i))
@@ -749,7 +749,7 @@
             )
         )                
         =>
-        (printout ?*debug-print-2* "ESCALERA EN MESA ["?n1","?n2","?n3","
+        (printout ?*debug-m-val-tab-temp* "ESCALERA EN MESA ["?n1","?n2","?n3","
         ?n4"] ("?c")" crlf)
         (modify ?h1 (ok-jugada-temp ?i))
         (modify ?h2 (ok-jugada-temp ?i))
@@ -786,7 +786,7 @@
             )    
         )                    
         =>        
-        (printout ?*debug-print-2* "ESCALERA EN MESA ["?n1","?n2","
+        (printout ?*debug-m-val-tab-temp* "ESCALERA EN MESA ["?n1","?n2","
         ?n3"] ("?c")" crlf)
         (modify ?h1 (ok-jugada-temp ?i))
         (modify ?h2 (ok-jugada-temp ?i))
@@ -816,7 +816,7 @@
                        (neq ?c2 ?c3 ?c4)
                            (neq ?c3 ?c4)))
         =>        
-        (printout ?*debug-print-2* "SERIE    EN MESA ["?n1"] ("?c1","?c2","
+        (printout ?*debug-m-val-tab-temp* "SERIE    EN MESA ["?n1"] ("?c1","?c2","
         ?c3","?c4")" crlf)
         (modify ?h1 (ok-jugada-temp ?i))
         (modify ?h2 (ok-jugada-temp ?i))
@@ -840,7 +840,7 @@
         (test (and (neq ?c1 ?c2 ?c3)
                        (neq ?c2 ?c3)))
         =>        
-        (printout ?*debug-print-2* "SERIE    EN MESA ["?n1"] ("?c1","?c2","
+        (printout ?*debug-m-val-tab-temp* "SERIE    EN MESA ["?n1"] ("?c1","?c2","
         ?c3")" crlf)
         (modify ?h1 (ok-jugada-temp ?i))
         (modify ?h2 (ok-jugada-temp ?i))
