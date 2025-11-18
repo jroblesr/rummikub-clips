@@ -220,7 +220,9 @@ class RummikubUI(tk.Tk):
         # Ordenar las fichas por grupo para asegurar una representación consistente
         fichas.sort(key=lambda f: (  int(f.get('id-serie',    0))
                                    , int(f.get('id-escalera', 0))
-                                   , int(f.get('orden',       0))))                    
+                                   , int(f.get('orden',       0))))    
+
+        print("FICHAS DESPUES DE ORDENAR=",fichas)                
 
         fila_actual, col_actual = 0, 0
         id_grupo_anterior = None

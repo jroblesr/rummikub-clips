@@ -78,6 +78,14 @@
         (slot color     (allowed-values azul naranja negro rojo comodin)
                         (default ?NONE))
         (slot bloque    (allowed-values 1 2))
+        (slot marcada-serie    (type INTEGER)
+                               (default -1))
+        (slot id-serie         (type INTEGER)
+                               (default 0))                               
+        (slot marcada-escalera (type INTEGER)
+                               (default -1))
+        (slot id-escalera      (type INTEGER)
+                               (default 0))        
         (slot id-jugada-temp   (type INTEGER)
                                (default -1))
         (slot ok-jugada-temp   (type INTEGER)
@@ -86,6 +94,8 @@
                                (default -1))
         (slot columna          (type INTEGER)
                                (default -1))
+        (slot refresco         (type INTEGER)
+                               (default 0))
 )
 
 (deftemplate MAIN::validar-tablero)
@@ -485,6 +495,9 @@ crlf
                                                 (eq ?h-aux:correcto si))
                 then 
                         (printout t "RECORDAMOS EL TABLERO!!!" crlf)
+                        (bind ?id (obtener-siguiente-secuencia))
+                        (bind ?fichas-temporales (find-all-facts ((?f ficha-temporal)) TRUE ))
+                        (foreach ?ficha-temporal ?fichas-temporales (modify ?ficha-temporal (refresco ?id)))
                         (focus M-HACER-DISPOSICION-TABLERO-DEFINITIVA)
                 else
                         (printout t 

@@ -281,7 +281,7 @@ class Rummikub(UI.RummikubUI):
                 fila = ficha['fila']
                 columna = ficha['col']
                 # Expresión regular para extraer número, letra de color y símbolo de bloque
-                match = re.match(r"(\d+)([AJNRC])(['.])([\+])", texto_ficha)
+                match = re.match(r"(\d+)([AJNRC])(['.])([\+]?)", texto_ficha)
                 if match:
                     numero = match.group(1)
                     letra_color = match.group(2)
@@ -297,14 +297,16 @@ class Rummikub(UI.RummikubUI):
                     comando_assert = f"(assert (ficha-temporal (numero {numero}) (color {color}) (bloque {bloque}) (id-jugada-temp (obtener-valor-actual-secuencia)) (ok-jugada-temp -1) (fila {fila}) (columna {columna})))"
                     print(comando_assert) # Para depuración
                     clipsprogram.EntornoClips.eval(comando_assert)
+                else:
+                    print("TEXTO FICHA="+texto_ficha+" NO MATCH!!!")
 
         ## Una vez cargado el tablero temporal. Pasamos a validarlo.
-        #print("\n--- Hechos '!=ficha' en CLIPS antes de validar ---")
-        #for fact in clipsprogram.EntornoClips.facts():
-        #    # Imprimimos todos los hechos que no son de tipo 'ficha'
-        #    if fact.template.name != 'ficha':
-        #        print(fact)
-        #print("-----------------------------------------------------------\n")
+        print("\n--- Hechos '=ficha-temporal' en CLIPS antes de validar ---")
+        for fact in clipsprogram.EntornoClips.facts():
+            # Imprimimos todos los hechos que no son de tipo 'ficha'
+            if fact.template.name == 'ficha-temporal':
+                print(fact)
+        print("-----------------------------------------------------------\n")
         clipsprogram.EntornoClips.eval('(comprobar-jugadas-tablero-temporal)')
         clipsprogram.EntornoClips.run()
 
@@ -313,11 +315,11 @@ class Rummikub(UI.RummikubUI):
         # ...se habrá hecho limpieza de temporales.
         # Echemos un vistazo...
         ## Una vez cargado el tablero temporal. Pasamos a validarlo.
-        #print("\n--- Hechos en CLIPS despues de ejecutar jugada ---")
-        #for fact in clipsprogram.EntornoClips.facts():
-        #    if fact.template.name != ' ':
-        #        print(fact)
-        #print("-----------------------------------------------------------\n")
+        print("\n--- Hechos en CLIPS despues de validar jugada ---")
+        for fact in clipsprogram.EntornoClips.facts():
+            if fact.template.name == 'ficha-temporal':
+                print(fact)
+        print("-----------------------------------------------------------\n")
 
         # Antes de pasar turno a la máquina. Nos aseguramos que el jugador
         # ha puesto al menos una ficha.
@@ -401,8 +403,7 @@ class Rummikub(UI.RummikubUI):
             self._textos_ocultos_maquina = [] # Limpiamos el backup de textos
 
     def mostrar_fichas_tablero(self):
-            """Actualiza la mesa de juego con las 
-            fichas actuales del tablero."""
+            """Actualiza la mesa de juego con las fichas actuales del tablero."""
             fichas_tablero = self.obtener_fichas_por_ubicacion('tablero')
             self._actualizar_mesa(fichas_tablero)
 
